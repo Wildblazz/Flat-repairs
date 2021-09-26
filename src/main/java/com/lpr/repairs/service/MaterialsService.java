@@ -7,7 +7,6 @@ import com.lpr.repairs.model.MaterialCategory;
 import com.lpr.repairs.model.TradeMark;
 import com.lpr.repairs.repository.MaterialCategoryRepository;
 import com.lpr.repairs.repository.MaterialsRepository;
-import com.lpr.repairs.repository.MaterialsRepositorySpec;
 import com.lpr.repairs.repository.TradeMarkRepository;
 import com.lpr.repairs.repository.spec.MaterialsSpec;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import java.util.List;
 public class MaterialsService {
 
   private final MaterialsRepository materialsRepository;
-  private final MaterialsRepositorySpec materialsRepositorySpec;
   private final MaterialCategoryRepository materialCategoryRepository;
   private final TradeMarkRepository tradeMarkRepository;
   private final MaterialsSpec materialsSpec;
@@ -67,6 +65,6 @@ public class MaterialsService {
   }
 
   public List<Material> search(MaterialSearchParam searchParam) {
-    return materialsRepositorySpec.findAll(materialsSpec.buildSearchSpec(searchParam));
+    return materialsRepository.findAll(materialsSpec.buildSearchSpec(searchParam));
   }
 }

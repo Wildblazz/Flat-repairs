@@ -36,8 +36,7 @@ public class EmployeeSpec {
     addSpec(equalCriteria(Employee_.ID, searchParam.getId()), specList);
     addSpec(likeCriteria(Employee_.NAME, searchParam.getName()), specList);
     addSpec(likeCriteria(Employee_.SURNAME, searchParam.getSurname()), specList);
-//    todo
-//    addSpec(likeCriteria(Employee_.SKILL, searchParam.getSkill()), specList);
+    addSpec(equalCriteria(Employee_.SKILL, searchParam.getSkill()), specList);
     addSpec(getJoinedTable(Employee.class, JobCategory.class, Employee_.JOB_CATEGORIES, JobCategory_.ID,
         jobCategories.map(JobCategory::getId).collect(Collectors.toList()), EQUALITY), specList);
 

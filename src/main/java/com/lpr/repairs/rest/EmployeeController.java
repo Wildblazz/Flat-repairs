@@ -41,11 +41,12 @@ public class EmployeeController {
     return new ResponseEntity<>(service.findById(employeeId), HttpStatus.OK);
   }
 
-//  @PostMapping(path = "/search")
-//  @ResponseStatus(HttpStatus.OK)
-//  public ResponseEntity<Employee> search(@Valid @RequestBody EmployeeSearchParam searchParam) {
-//    return new ResponseEntity<>(service.search(searchParam), HttpStatus.OK);
-//  }
+  @PostMapping(path = "/search")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<List<Employee>> search(@Valid @RequestBody EmployeeSearchParam searchParam) {
+//    todo FIX stream!!!
+    return new ResponseEntity<>(service.search(searchParam), HttpStatus.OK);
+  }
 
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)

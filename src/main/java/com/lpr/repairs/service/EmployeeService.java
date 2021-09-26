@@ -1,21 +1,18 @@
 package com.lpr.repairs.service;
 
-import com.lpr.repairs.dto.EstateDto;
 import com.lpr.repairs.dto.param.create.EmployeeCreateParam;
 import com.lpr.repairs.dto.param.search.EmployeeSearchParam;
 import com.lpr.repairs.model.Employee;
-import com.lpr.repairs.model.JobCategory;
-import com.lpr.repairs.model.Team;
-import com.lpr.repairs.repository.EmployeeRepositorySpec;
+import com.lpr.repairs.repository.EmployeeRepository;
 import com.lpr.repairs.repository.JobCategoryRepository;
 import com.lpr.repairs.repository.TeamRepository;
+import com.lpr.repairs.repository.spec.EmployeeSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.lpr.repairs.common.Util.isCollectionsSizeEqual;
 import static com.lpr.repairs.common.Util.throwExceptionIfRequired;
@@ -25,9 +22,10 @@ import static com.lpr.repairs.common.Util.throwExceptionIfRequired;
 @RequiredArgsConstructor
 public class EmployeeService {
 
-  private final EmployeeRepositorySpec employeeRepository;
+  private final EmployeeRepository employeeRepository;
   private final JobCategoryRepository jobCategoryRepository;
   private final TeamRepository teamRepository;
+  private final EmployeeSpec employeeSpec;
 
   public List<Employee> findAll() {
     return employeeRepository.findAll();
@@ -38,8 +36,7 @@ public class EmployeeService {
   }
 
   public List<Employee> search(EmployeeSearchParam searchParam) {
-//    return employeeRepository.findAll(jobSpec.buildSearchSpec(searchParam));
-    return null;
+    return employeeRepository.findAll(employeeSpec.buildSearchSpec(searchParam));
   }
 
   public Employee create(EmployeeCreateParam createParam) throws RuntimeException {

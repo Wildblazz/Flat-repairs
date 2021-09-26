@@ -9,9 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface EstateRepository extends JpaRepository<Estate, Long> {
-  @Override
-  List<Estate> findAll();
-
   Optional<Estate> findDistinctByUserId(Long userId);
 
   Optional<Estate> findDistinctByUserName(String userName);
