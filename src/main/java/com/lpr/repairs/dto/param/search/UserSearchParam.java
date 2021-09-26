@@ -1,0 +1,29 @@
+package com.lpr.repairs.dto.param.search;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.Pattern;
+import java.util.Set;
+
+import static com.lpr.repairs.common.Constants.Validation.ALPHABETIC;
+import static com.lpr.repairs.common.Constants.Validation.NUMERIC;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserSearchParam {
+  @Pattern(regexp = NUMERIC)
+  private String id;
+  @Pattern(regexp = ALPHABETIC)
+  private String userName;
+  @Pattern(regexp = ALPHABETIC)
+  private String name;
+  @Pattern(regexp = ALPHABETIC)
+  private String surname;
+  @Pattern(regexp = NUMERIC)
+  private Set<Long> estates;
+}
