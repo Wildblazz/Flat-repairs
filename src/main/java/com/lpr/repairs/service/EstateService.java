@@ -12,6 +12,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Objects.isNull;
@@ -29,8 +30,12 @@ public class EstateService {
     return estateRepository.findAll().stream().map(EstateDto::new).collect(Collectors.toList());
   }
 
-  public EstateDto findById(Long estateId) {
-    return estateRepository.findById(estateId).map(EstateDto::new).orElse(null);
+  public EstateDto findEstateById(Long estateId) {
+    return findById(estateId).map(EstateDto::new).orElse(null);
+  }
+
+  public Optional<Estate> findById(Long estateId) {
+    return estateRepository.findById(estateId);
   }
 
   public EstateDto findByUser(Long userId, String name) {
@@ -44,6 +49,7 @@ public class EstateService {
 
   public EstateDto create(EstateCreateParam createParam) throws RuntimeException {
 //    todo create custom exceptions
+    validateArea(createParam);
     var user = userRepository.findById(createParam.getUserId()).orElseThrow(RuntimeException::new);
     return new EstateDto(estateRepository.save(new Estate(createParam, user)));
   }
@@ -61,5 +67,12 @@ public class EstateService {
     estate.setRooms(dto.getRooms());
 
     return new EstateDto(estateRepository.save(estate));
+  }
+
+  private void validateArea(EstateCreateParam createParam) {
+    var totalArea = createParam.getArea() - createParam.getBathroomArea() - createParam.getKitchenArea() - createParam.getToiletArea();
+    if (totalArea <= 0) {
+      throw new RuntimeException("Wrong total area!");
+    }
   }
 }

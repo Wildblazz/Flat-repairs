@@ -1,4 +1,4 @@
-package com.lpr.repairs.dto.param.create;
+package com.lpr.repairs.dto.param.common;
 
 import com.lpr.repairs.model.enums.PriorityEnum;
 import lombok.AllArgsConstructor;
@@ -8,9 +8,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.HashSet;
-import java.util.Set;
 
 import static com.lpr.repairs.common.Constants.Validation.ALPHANUMERIC;
 
@@ -18,23 +17,18 @@ import static com.lpr.repairs.common.Constants.Validation.ALPHANUMERIC;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EmployeeCreateParam {
+public class DesiredRepairsParam {
   @Max(64)
   @NotBlank
   @Pattern(regexp = ALPHANUMERIC)
-  private String name;
+  private String username;
 
-  @Max(64)
-  @NotBlank
-  @Pattern(regexp = ALPHANUMERIC)
-  private String loginId;
+  @NotNull
+  private Long estateId;
 
-  @NotBlank
-  private String surname;
+  private PriorityEnum materialsPriceLevel;
 
-  private PriorityEnum skill;
+  private PriorityEnum employeePriceLevel;
 
-  private Set<String> jobCategories = new HashSet<>();
-
-  private Set<String> teams = new HashSet<>();
+  private PriorityEnum repairTime;
 }

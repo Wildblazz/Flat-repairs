@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Collections.emptyList;
@@ -29,7 +30,7 @@ public class UserService {
 
   @Transactional
   public UserDto create(@Valid UserCreateParam createParam) {
-    userRepository.findByUserName(createParam.getUsername()).ifPresent(usr -> {
+    findUserByUserName(createParam.getUsername()).ifPresent(usr -> {
       throw new RuntimeException("User with given userName exists");
     });
     return new UserDto(userRepository.save(new User(createParam)));
@@ -50,5 +51,9 @@ public class UserService {
 
   public List<UserDto> search(UserSearchParam searchParam) {
     return  repositoryCustom.search(searchParam).stream().map(UserDto::new).collect(Collectors.toList());
+  }
+
+  public Optional<User> findUserByUserName(String userName) {
+    return userRepository.findByUserName(userName);
   }
 }

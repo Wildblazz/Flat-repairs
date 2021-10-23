@@ -36,10 +36,28 @@ public class Estate {
   private long id;
 
   @Column(nullable = false)
-  private int area;
+  private double area;
+
+  @Column(nullable = false)
+  private double kitchenArea;
+
+  @Column(nullable = false)
+  private double toiletsArea;
+
+  @Column(nullable = false)
+  private double bathroomsArea;
 
   @Column(nullable = false)
   private int rooms;
+
+  @Column(nullable = false)
+  private int toilets;
+
+  @Column(nullable = false)
+  private int bathrooms;
+
+  @Column(nullable = false)
+  private boolean isCommonBathroomWithToilet;
 
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
@@ -56,13 +74,25 @@ public class Estate {
   public Estate(EstateDto dto) {
     this.id = dto.getId();
     this.area = dto.getArea();
+    this.kitchenArea = dto.getKitchenArea();
+    this.toiletsArea = dto.getToiletArea();
+    this.bathroomsArea = dto.getBathroomArea();
+    this.toilets = dto.getToilets();
+    this.bathrooms = dto.getBathrooms();
+    this.isCommonBathroomWithToilet = dto.isCommonBathroomWithToilet();
     this.rooms = dto.getRooms();
 //    user = new User(dto.getUser());
   }
 
-  public Estate(EstateCreateParam createParam, User user) {
-    this.area = createParam.getArea();
-    this.rooms = createParam.getRooms();
+  public Estate(EstateCreateParam param, User user) {
+    this.area = param.getArea();
+    this.kitchenArea = param.getKitchenArea();
+    this.toiletsArea = param.getToiletArea();
+    this.bathroomsArea = param.getBathroomArea();
+    this.toilets = param.getToilets();
+    this.bathrooms = param.getBathrooms();
+    this.isCommonBathroomWithToilet = param.isCommonBathroomWithToilet();
+    this.rooms = param.getRooms();
     this.user =  user;
 
   }

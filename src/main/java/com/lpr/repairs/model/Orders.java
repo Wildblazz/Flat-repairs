@@ -1,5 +1,6 @@
 package com.lpr.repairs.model;
 
+import com.lpr.repairs.model.enums.PriorityEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

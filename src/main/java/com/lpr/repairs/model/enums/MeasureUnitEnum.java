@@ -1,4 +1,4 @@
-package com.lpr.repairs.model;
+package com.lpr.repairs.model.enums;
 
 public enum MeasureUnitEnum {
   HOUR, METER, NONE

@@ -3,7 +3,7 @@ package com.lpr.repairs.dto;//package com.lpr.repairs.dto;
 import com.lpr.repairs.model.Material;
 import com.lpr.repairs.model.MaterialCategory;
 import com.lpr.repairs.model.Price;
-import com.lpr.repairs.model.PriorityEnum;
+import com.lpr.repairs.model.enums.PriorityEnum;
 import com.lpr.repairs.model.TradeMark;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

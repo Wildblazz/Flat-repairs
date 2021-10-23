@@ -1,7 +1,7 @@
 //package com.lpr.repairs.dto;
 //
 //import com.lpr.repairs.model.Employee;
-//import com.lpr.repairs.model.PriorityEnum;
+//import com.lpr.repairs.model.enums.PriorityEnum;
 //import com.lpr.repairs.model.ServiceCategory;
 //import com.lpr.repairs.model.Team;
 //import com.lpr.repairs.model.User;

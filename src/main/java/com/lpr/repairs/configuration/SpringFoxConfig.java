@@ -18,15 +18,5 @@ public class SpringFoxConfig {
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.any())
         .build();
-//        .apiInfo(apiInfo());
   }
-
-//  private ApiInfo apiInfo() {
-//    return new ApiInfoBuilder()
-//        .title("")
-//        .description("")
-//        .license("License")
-//        .licenseUrl("https://opensource.org/licenses/")
-//        .build();
-//  }
 }

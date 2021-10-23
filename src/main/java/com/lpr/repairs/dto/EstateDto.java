@@ -24,13 +24,34 @@ public class EstateDto {
 
   @Max(4)
   @NotBlank
-  @Pattern(regexp = NUMERIC)
-  private int area;
+  private double area;
 
-  @Max(3)
+  @Max(4)
   @NotBlank
-  @Pattern(regexp = NUMERIC)
+  private double kitchenArea;
+
+  @Max(4)
+  @NotBlank
+  private double toiletArea;
+
+
+  @Max(4)
+  @NotBlank
+  private double bathroomArea;
+
+  @Max(2)
+  @NotBlank
   private int rooms;
+
+  @Max(2)
+  @NotBlank
+  private int toilets;
+
+  @Max(2)
+  @NotBlank
+  private int bathrooms;
+
+  private boolean isCommonBathroomWithToilet;
 
   private long userId;
 
@@ -38,7 +59,13 @@ public class EstateDto {
   public EstateDto(Estate estate) {
     id = estate.getId();
     area = estate.getArea();
+    kitchenArea = estate.getKitchenArea();
+    bathroomArea = estate.getBathroomsArea();
+    toiletArea = estate.getToiletsArea();
+    bathrooms = estate.getBathrooms();
+    toilets = estate.getToilets();
     rooms = estate.getRooms();
+    isCommonBathroomWithToilet = estate.isCommonBathroomWithToilet();
     userId = estate.getUser().getId();
   }
 }

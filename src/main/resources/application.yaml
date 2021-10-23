@@ -21,3 +21,11 @@ spring:
 #    data-locations: classpath*:database/populateDB.sql
 ##spring.sql.init.ddlScriptLocations=classpath*:resources/initDB.sql
 ##spring.sql.init.data-locations=classpath*:database/populateDB.sql
+
+repair:
+  coefficients:
+    kitchenCoefficient: ${KITCHEN_KOEFFICIENT:1.7}
+    toiletCoefficient: ${TOILET_KOEFFICIENT:1.7}
+    multipleToiletCoefficient: ${MULTIPLE_TOILET_KOEFFICIENT:1.2}
+    bathroomCoefficient: ${BATHROOM_KOEFFICIENT:1.9}
+    multipleBathroomCoefficient: ${MULTIPLE_BATHROOM_KOEFFICIENT:1.7}
