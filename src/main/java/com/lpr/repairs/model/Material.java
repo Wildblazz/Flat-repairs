@@ -51,6 +51,11 @@ public class Material {
 
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id")
+  @JoinColumn(name = "material_category_id")
   private MaterialCategory materialCategory;
+
+  @JsonBackReference
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "job_category_id")
+  private JobCategory jobCategory;
 }

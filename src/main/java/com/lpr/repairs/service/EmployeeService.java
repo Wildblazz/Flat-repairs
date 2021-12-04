@@ -3,6 +3,8 @@ package com.lpr.repairs.service;
 import com.lpr.repairs.dto.param.create.EmployeeCreateParam;
 import com.lpr.repairs.dto.param.search.EmployeeSearchParam;
 import com.lpr.repairs.model.Employee;
+import com.lpr.repairs.model.JobCategory;
+import com.lpr.repairs.model.enums.PriorityEnum;
 import com.lpr.repairs.repository.EmployeeRepository;
 import com.lpr.repairs.repository.JobCategoryRepository;
 import com.lpr.repairs.repository.TeamRepository;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static com.lpr.repairs.common.Util.isCollectionsSizeEqual;
 import static com.lpr.repairs.common.Util.throwExceptionIfRequired;
@@ -54,11 +57,7 @@ public class EmployeeService {
     employeeRepository.delete(existing);
   }
 
-//  private boolean isTeamExists(String name) {
-//    return teamRepository.findByName(name).isPresent();
-//  }
-//
-//  private boolean isJobCategoryExists(String name) {
-//    return jobCategoryRepository.findByName(name).isPresent();
-//  }
+  public List<Employee> getEmployeesByJobAndPriceLevel(Set<JobCategory> jobs, PriorityEnum priceLevel) {
+    return employeeRepository.findByJobCategoriesInAndSkill(jobs, priceLevel);
+  }
 }

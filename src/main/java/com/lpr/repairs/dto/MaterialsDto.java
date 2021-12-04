@@ -1,10 +1,10 @@
-package com.lpr.repairs.dto;//package com.lpr.repairs.dto;
+package com.lpr.repairs.dto;
 
+import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.model.Material;
-import com.lpr.repairs.model.MaterialCategory;
 import com.lpr.repairs.model.Price;
-import com.lpr.repairs.model.enums.PriorityEnum;
 import com.lpr.repairs.model.TradeMark;
+import com.lpr.repairs.model.enums.PriorityEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -39,7 +39,7 @@ public class MaterialsDto {
   private String description;
 
   //todo add validation
-  private MaterialCategory materialCategory;
+  private JobCategory jobCategory;
   private TradeMark tradeMark;
   private Price price;
   private PriorityEnum priority;
@@ -47,7 +47,7 @@ public class MaterialsDto {
   public MaterialsDto(Material material) {
     id = material.getId();
     name = material.getName();
-    materialCategory = material.getMaterialCategory();
+    jobCategory = material.getJobCategory();
     tradeMark = material.getTradeMark();
     price = material.getPrice();
     priority = material.getPriceLevel();

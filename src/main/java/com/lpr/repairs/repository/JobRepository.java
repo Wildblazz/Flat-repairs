@@ -7,10 +7,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
-public interface JobRepositorySpec extends JpaRepository<Job, Long>, JpaSpecificationExecutor<Job> {
+public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificationExecutor<Job> {
   Optional<Job> findByName(String name);
 
   List<Job> findByJobCategoryId(long id);
+
+  List<Job> findByIdIn(Set<Long> ids);
 }

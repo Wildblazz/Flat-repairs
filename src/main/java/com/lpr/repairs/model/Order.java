@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,48 +16,46 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.List;
+import java.util.Set;
 
 @Data
-@Table
+@Table(name = "orders")
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Orders {
+public class Order {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "estate_id")
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "estate_id", referencedColumnName = "id")
   private Estate estate;
-
-  @Enumerated(EnumType.STRING)
-  private PriorityEnum qualityLevel;
 
   @Enumerated(EnumType.STRING)
   private PriorityEnum timePriority;
 
-  @OneToMany(fetch = FetchType.LAZY,
-      cascade = CascadeType.ALL)
-  private List<Job> jobs;
-
-  @Embedded
-  private Price price;
+  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private Set<Job> jobs;
 
   @Enumerated(EnumType.STRING)
-  private PriorityEnum priceLevel;
+  private PriorityEnum materialsPriceLevel;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id")
-  private MaterialCategory materialCategory;
+  @Enumerated(EnumType.STRING)
+  private PriorityEnum employeeQualityLevel;
+
+  @Enumerated(EnumType.STRING)
+  private PriorityEnum repairTime;
+
+  @Column
+  private Double total;
 }

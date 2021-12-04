@@ -3,20 +3,15 @@ package com.lpr.repairs.repository.spec;
 import com.lpr.repairs.dto.param.search.EmployeeSearchParam;
 import com.lpr.repairs.model.Employee;
 import com.lpr.repairs.model.Employee_;
-import com.lpr.repairs.model.Job;
 import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.model.JobCategory_;
-import com.lpr.repairs.model.Job_;
 import com.lpr.repairs.model.Team;
 import com.lpr.repairs.model.Team_;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.lpr.repairs.common.Util.getSafeStream;
 import static com.lpr.repairs.repository.spec.SpecBuilder.SearchOperation.EQUALITY;

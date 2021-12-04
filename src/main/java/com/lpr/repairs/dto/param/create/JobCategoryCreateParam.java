@@ -1,6 +1,5 @@
-package com.lpr.repairs.dto.param.common;
+package com.lpr.repairs.dto.param.create;
 
-import com.lpr.repairs.model.enums.PriorityEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,8 +7,8 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Set;
 
 import static com.lpr.repairs.common.Constants.Validation.ALPHANUMERIC;
 
@@ -17,18 +16,11 @@ import static com.lpr.repairs.common.Constants.Validation.ALPHANUMERIC;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DesiredRepairsParam {
+public class JobCategoryCreateParam {
   @Max(64)
   @NotBlank
   @Pattern(regexp = ALPHANUMERIC)
-  private String username;
+  private String name;
 
-  @NotNull
-  private Long estateId;
-
-  private PriorityEnum materialsPriceLevel;
-
-  private PriorityEnum employeePriceLevel;
-
-  private PriorityEnum repairTime;
+  private Set<MaterialsFormulaCreateParam> formulaCreateParams;
 }

@@ -51,6 +51,10 @@ public class EstateDto {
   @NotBlank
   private int bathrooms;
 
+  @Max(5)
+  @NotBlank
+  private double floorsArea;
+
   private boolean isCommonBathroomWithToilet;
 
   private long userId;
@@ -61,6 +65,7 @@ public class EstateDto {
     area = estate.getArea();
     kitchenArea = estate.getKitchenArea();
     bathroomArea = estate.getBathroomsArea();
+    floorsArea = estate.getFloorArea();
     toiletArea = estate.getToiletsArea();
     bathrooms = estate.getBathrooms();
     toilets = estate.getToilets();

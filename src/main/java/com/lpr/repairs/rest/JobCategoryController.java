@@ -1,6 +1,6 @@
 package com.lpr.repairs.rest;
 
-import com.lpr.repairs.model.Job;
+import com.lpr.repairs.dto.param.create.JobCategoryCreateParam;
 import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.service.JobCategoryService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -45,14 +46,14 @@ public class JobCategoryController {
 
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<JobCategory> createJob(@Pattern(regexp = ALPHANUMERIC) @RequestBody String name) {
-    return new ResponseEntity<>(service.create(name), HttpStatus.OK);
+  public ResponseEntity<JobCategory> createJobCategory(@Pattern(regexp = ALPHANUMERIC) @RequestBody @Valid JobCategoryCreateParam param) {
+    return new ResponseEntity<>(service.create(param), HttpStatus.OK);
   }
 
 
   @DeleteMapping()
   @ResponseStatus(HttpStatus.OK)
-  public void removeJob(@NotBlank @RequestParam Long id) {
+  public void removeJobCategory(@NotBlank @RequestParam Long id) {
     service.remove(id);
   }
 }

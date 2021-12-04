@@ -2,9 +2,11 @@ package com.lpr.repairs.service;
 
 import com.lpr.repairs.dto.param.create.MaterialCreateParam;
 import com.lpr.repairs.dto.param.search.MaterialSearchParam;
+import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.model.Material;
 import com.lpr.repairs.model.MaterialCategory;
 import com.lpr.repairs.model.TradeMark;
+import com.lpr.repairs.repository.JobCategoryRepository;
 import com.lpr.repairs.repository.MaterialCategoryRepository;
 import com.lpr.repairs.repository.MaterialsRepository;
 import com.lpr.repairs.repository.TradeMarkRepository;
@@ -22,6 +24,7 @@ public class MaterialsService {
 
   private final MaterialsRepository materialsRepository;
   private final MaterialCategoryRepository materialCategoryRepository;
+  private final JobCategoryRepository jobCategoryRepository;
   private final TradeMarkRepository tradeMarkRepository;
   private final MaterialsSpec materialsSpec;
 
@@ -36,8 +39,9 @@ public class MaterialsService {
     });
     var tradeMark = saveTradeMark(createParam.getTradeMark());
     var materialCategory = saveMaterialCategory(createParam.getMaterialCategory());
+    var jobCategory = saveJobCategory(createParam.getJobCategory());
 
-    return materialsRepository.save(createMaterial(createParam, materialCategory, tradeMark));
+    return materialsRepository.save(createMaterial(createParam, materialCategory, jobCategory, tradeMark));
   }
 
   public void remove(Long id) {
@@ -53,13 +57,19 @@ public class MaterialsService {
         .orElse(materialCategoryRepository.save(MaterialCategory.builder().name(materialCategoryName).build()));
   }
 
-  private Material createMaterial(MaterialCreateParam createParam, MaterialCategory category, TradeMark tradeMark) {
+  private JobCategory saveJobCategory(String jobCategoryName) {
+    return jobCategoryRepository.findByName(jobCategoryName)
+        .orElse(jobCategoryRepository.save(JobCategory.builder().name(jobCategoryName).build()));
+  }
+
+  private Material createMaterial(MaterialCreateParam createParam, MaterialCategory materialCategory, JobCategory jobCategory, TradeMark tradeMark) {
     return Material.builder()
         .name(createParam.getName())
         .description(createParam.getDescription())
         .price(createParam.getPrice())
         .priceLevel(createParam.getPriority())
-        .materialCategory(category)
+        .materialCategory(materialCategory)
+        .jobCategory(jobCategory)
         .tradeMark(tradeMark)
         .build();
   }

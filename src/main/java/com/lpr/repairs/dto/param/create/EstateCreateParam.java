@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -33,6 +32,10 @@ public class EstateCreateParam {
   @Max(4)
   @NotBlank
   private double bathroomArea;
+
+  @Max(4)
+  @NotBlank
+  private double floorsArea;
 
   @Max(2)
   @NotBlank

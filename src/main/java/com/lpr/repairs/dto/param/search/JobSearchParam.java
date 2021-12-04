@@ -1,6 +1,5 @@
 package com.lpr.repairs.dto.param.search;
 
-import com.lpr.repairs.model.JobCategory;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -48,6 +48,9 @@ public class Estate {
   private double bathroomsArea;
 
   @Column(nullable = false)
+  private double floorArea;
+
+  @Column(nullable = false)
   private int rooms;
 
   @Column(nullable = false)
@@ -75,6 +78,7 @@ public class Estate {
     this.id = dto.getId();
     this.area = dto.getArea();
     this.kitchenArea = dto.getKitchenArea();
+    this.floorArea = dto.getFloorsArea();
     this.toiletsArea = dto.getToiletArea();
     this.bathroomsArea = dto.getBathroomArea();
     this.toilets = dto.getToilets();
@@ -89,6 +93,7 @@ public class Estate {
     this.kitchenArea = param.getKitchenArea();
     this.toiletsArea = param.getToiletArea();
     this.bathroomsArea = param.getBathroomArea();
+    this.floorArea = param.getFloorsArea();
     this.toilets = param.getToilets();
     this.bathrooms = param.getBathrooms();
     this.isCommonBathroomWithToilet = param.isCommonBathroomWithToilet();

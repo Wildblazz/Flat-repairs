@@ -4,9 +4,13 @@ import com.lpr.repairs.model.MaterialCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface MaterialCategoryRepository extends JpaRepository<MaterialCategory, Long> {
   Optional<MaterialCategory> findByName(String name);
+
+  List<MaterialCategory> findByNameIn(Collection<String> names);
 }

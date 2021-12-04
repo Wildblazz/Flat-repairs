@@ -39,6 +39,11 @@ public class MaterialCreateParam {
   @Pattern(regexp = ALPHANUMERIC)
   private String materialCategory;
 
+  @Max(32)
+  @NotBlank
+  @Pattern(regexp = ALPHANUMERIC)
+  private String jobCategory;
+
   @NotNull
   private Price price;
 

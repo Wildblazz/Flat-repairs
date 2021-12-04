@@ -11,10 +11,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.lpr.repairs.repository.spec.SpecBuilder.SearchOperation.EQUALITY;
 import static com.lpr.repairs.repository.spec.SpecBuilder.SearchOperation.IN;
 import static com.lpr.repairs.repository.spec.SpecBuilder.SearchType.AND;
 import static com.lpr.repairs.repository.spec.SpecBuilder.addSpec;

@@ -5,12 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Data
 @Entity
@@ -18,16 +22,16 @@ import javax.persistence.Table;
 @Table
 @AllArgsConstructor
 @NoArgsConstructor
-public class MaterialCategory {
+public class MaterialsFormula {
 
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
-  @Column(nullable = false, unique = true, length = 32)
+  @Column(nullable = false)
   private String name;
 
-  public MaterialCategory(String name) {
-    this.name = name;
-  }
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private Set<MaterialsFormulaProportions> materialCategoryProportions;
 }
+

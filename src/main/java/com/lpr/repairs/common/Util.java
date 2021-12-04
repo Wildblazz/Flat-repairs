@@ -2,10 +2,8 @@ package com.lpr.repairs.common;
 
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.stream.Collector;
 import java.util.stream.Stream;
 
 public class Util {

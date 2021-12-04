@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,7 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import java.util.Set;
@@ -59,7 +59,14 @@ public class Employee {
   @Enumerated(EnumType.STRING)
   private PriorityEnum skill;
 
-  @OneToMany
+  @Embedded
+  private Price price;
+
+  @ManyToMany
+  @JoinTable(
+      name = "employee_job_categories",
+      joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+      inverseJoinColumns = @JoinColumn(name = "job_category_id", referencedColumnName = "id"))
   private Set<JobCategory> jobCategories;
 
   @ManyToMany

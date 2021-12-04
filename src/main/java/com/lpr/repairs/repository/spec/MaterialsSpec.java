@@ -1,6 +1,8 @@
 package com.lpr.repairs.repository.spec;
 
 import com.lpr.repairs.dto.param.search.MaterialSearchParam;
+import com.lpr.repairs.model.JobCategory;
+import com.lpr.repairs.model.JobCategory_;
 import com.lpr.repairs.model.Material;
 import com.lpr.repairs.model.MaterialCategory;
 import com.lpr.repairs.model.MaterialCategory_;
@@ -32,6 +34,8 @@ public class MaterialsSpec {
     addSpec(getJoinedTable(Material.class, TradeMark.class, Material_.TRADE_MARK, TradeMark_.NAME, searchParam.getTradeMarkName(), EQUALITY), specList);
     addSpec(getJoinedTable(Material.class, MaterialCategory.class, Material_.MATERIAL_CATEGORY, MaterialCategory_.ID, searchParam.getMaterialCategoryId(), EQUALITY), specList);
     addSpec(getJoinedTable(Material.class, MaterialCategory.class, Material_.MATERIAL_CATEGORY, MaterialCategory_.NAME, searchParam.getMaterialCategoryName(), EQUALITY), specList);
+    addSpec(getJoinedTable(Material.class, JobCategory.class, Material_.JOB_CATEGORY, JobCategory_.ID, searchParam.getJobCategoryId(), EQUALITY), specList);
+    addSpec(getJoinedTable(Material.class, JobCategory.class, Material_.JOB_CATEGORY, JobCategory_.NAME, searchParam.getJobCategoryName(), EQUALITY), specList);
 
     return getNonNullSpecs(specList, AND);
   }

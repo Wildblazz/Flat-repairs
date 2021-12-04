@@ -1,7 +1,5 @@
 package com.lpr.repairs.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.lpr.repairs.dto.param.create.EstateCreateParam;
 import com.lpr.repairs.dto.param.create.JobCreateParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;

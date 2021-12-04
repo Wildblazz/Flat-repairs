@@ -5,7 +5,7 @@ import com.lpr.repairs.dto.param.search.JobSearchParam;
 import com.lpr.repairs.model.Job;
 import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.repository.JobCategoryRepository;
-import com.lpr.repairs.repository.JobRepositorySpec;
+import com.lpr.repairs.repository.JobRepository;
 import com.lpr.repairs.repository.spec.JobSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class JobService {
-  private final JobRepositorySpec jobRepository;
+  private final JobRepository jobRepository;
   private final JobCategoryRepository categoryRepository;
   private final JobSpec jobSpec;
 
