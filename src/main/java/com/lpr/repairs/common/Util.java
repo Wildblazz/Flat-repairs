@@ -23,7 +23,8 @@ public class Util {
   }
 
   public static boolean isEmptyGenericCollection(Object param) {
-    return param instanceof Iterable && CollectionUtils.isNotEmpty((Collection<?>) param) && ((Collection<?>) param).stream().allMatch(
-        Objects::isNull);
+    return param instanceof Iterable &&
+        (CollectionUtils.isEmpty((Collection<?>) param) ||
+        ((Collection<?>) param).stream().allMatch(Objects::isNull));
   }
 }

@@ -1,7 +1,5 @@
 package com.lpr.repairs.dto.param.search;
 
-import com.lpr.repairs.model.JobCategory;
-import com.lpr.repairs.model.Team;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,8 +12,8 @@ import java.util.Set;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class EmployeeSearchParam extends EmployeeCommonSearchParam {
-  private Set<JobCategory> jobCategories;
-  private Set<Team> teams;
+  private Set<CommonSearchParam> jobCategories;
+  private Set<CommonSearchParam> teams;
 }
 
 

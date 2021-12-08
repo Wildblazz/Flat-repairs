@@ -10,11 +10,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -59,17 +60,14 @@ public class Employee {
   @Enumerated(EnumType.STRING)
   private PriorityEnum skill;
 
-  @Embedded
-  private Price price;
-
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "employee_job_categories",
       joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "job_category_id", referencedColumnName = "id"))
   private Set<JobCategory> jobCategories;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinTable(
       name = "team_employee",
       joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),

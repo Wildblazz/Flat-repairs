@@ -37,6 +37,10 @@ public class Team {
   @Column(nullable = false, unique = true, length = 32)
   private String name;
 
-  @ManyToMany(mappedBy = "teams", fetch = FetchType.EAGER)
+  @ManyToMany(mappedBy = "teams", fetch = FetchType.LAZY)
   Set<Employee> employees;
+
+  public Team(String name) {
+    this.name = name;
+  }
 }

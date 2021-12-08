@@ -4,6 +4,7 @@ import com.lpr.repairs.dto.param.create.EmployeeCreateParam;
 import com.lpr.repairs.dto.param.search.EmployeeSearchParam;
 import com.lpr.repairs.model.Employee;
 import com.lpr.repairs.model.JobCategory;
+import com.lpr.repairs.model.Team;
 import com.lpr.repairs.model.enums.PriorityEnum;
 import com.lpr.repairs.repository.EmployeeRepository;
 import com.lpr.repairs.repository.JobCategoryRepository;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.lpr.repairs.common.Util.isCollectionsSizeEqual;
 import static com.lpr.repairs.common.Util.throwExceptionIfRequired;
@@ -44,8 +46,7 @@ public class EmployeeService {
 
   public Employee create(EmployeeCreateParam createParam) throws RuntimeException {
     throwExceptionIfRequired(employeeRepository.findByLoginId(createParam.getLoginId()).isPresent(), "Employee already exists!");
-    var teams = new HashSet<>(teamRepository.findByNameIn(createParam.getTeams()));
-    throwExceptionIfRequired(!isCollectionsSizeEqual(createParam.getTeams(), teams), "Cannot find given team!");
+    var teams = createParam.getTeams().stream().map(Team::new).collect(Collectors.toSet());
     var jobs = new HashSet<>(jobCategoryRepository.findByNameIn(createParam.getJobCategories()));
     throwExceptionIfRequired(!isCollectionsSizeEqual(createParam.getJobCategories(), jobs), "Cannot find Job Category!");
 

@@ -15,7 +15,7 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       dbc.lob.non_contextual_creation: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: validate
 #  sql.init:
 #    ddlScriptLocations: classpath*:resources/initDB.sql
 #    data-locations: classpath*:database/populateDB.sql

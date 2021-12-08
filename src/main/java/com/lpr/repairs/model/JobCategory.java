@@ -38,7 +38,4 @@ public class JobCategory {
       joinColumns = @JoinColumn(name = "job_category_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "materials_formula_id", referencedColumnName = "id"))
   private List<MaterialsFormula> requiredMaterialsFormula;
-
-//  @ManyToMany(mappedBy = "jobCategories")
-//  private Set<Employee> employee;
 }
