@@ -39,14 +39,9 @@ public class MaterialCreateParam {
   @Pattern(regexp = ALPHANUMERIC)
   private String materialCategory;
 
-  @Max(32)
-  @NotBlank
-  @Pattern(regexp = ALPHANUMERIC)
-  private String jobCategory;
-
   @NotNull
   private Price price;
 
   @NotNull
-  private PriorityEnum priority;
+  private PriorityEnum priceLevel;
 }

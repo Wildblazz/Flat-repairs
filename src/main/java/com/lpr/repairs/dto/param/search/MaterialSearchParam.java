@@ -32,11 +32,6 @@ public class MaterialSearchParam {
   @Pattern(regexp = ALPHANUMERIC)
   private String materialCategoryName;
 
-  private Long jobCategoryId;
-
-  @Pattern(regexp = ALPHANUMERIC)
-  private String jobCategoryName;
-
   private Price price;
 
   private PriorityEnum priceLevel;

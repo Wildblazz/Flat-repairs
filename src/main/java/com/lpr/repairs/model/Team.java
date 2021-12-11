@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +36,7 @@ public class Team {
   @Column(nullable = false, unique = true, length = 32)
   private String name;
 
-  @ManyToMany(mappedBy = "teams", fetch = FetchType.LAZY)
+  @ManyToMany(mappedBy = "teams")
   Set<Employee> employees;
 
   public Team(String name) {

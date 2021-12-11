@@ -1,5 +1,6 @@
 package com.lpr.repairs.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.lpr.repairs.dto.param.create.EmployeeCreateParam;
@@ -11,7 +12,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -60,12 +63,19 @@ public class Employee {
   @Enumerated(EnumType.STRING)
   private PriorityEnum skill;
 
+  @JsonBackReference
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(
       name = "employee_job_categories",
       joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(name = "job_category_id", referencedColumnName = "id"))
   private Set<JobCategory> jobCategories;
+
+//  to avoid big payload(jobCategoryEntity) and fetching data from many tables
+  @ElementCollection
+  @CollectionTable(name="employee_job_categories", joinColumns=@JoinColumn(name="employee_id"))
+  @Column(name="job_category_id")
+  private Set<Long> jobCategoryIds;
 
   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
   @JoinTable(

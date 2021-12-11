@@ -1,18 +1,17 @@
 package com.lpr.repairs.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.lpr.repairs.model.enums.PriorityEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,9 +37,8 @@ public class Material {
   @Column(length = 512)
   private String description;
 
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "trade_mark_id")
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "trade_mark_id", referencedColumnName = "id")
   private TradeMark tradeMark;
 
   @Embedded
@@ -49,13 +47,7 @@ public class Material {
   @Enumerated(EnumType.STRING)
   private PriorityEnum priceLevel;
 
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "material_category_id")
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "material_category_id", referencedColumnName = "id")
   private MaterialCategory materialCategory;
-
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "job_category_id")
-  private JobCategory jobCategory;
 }

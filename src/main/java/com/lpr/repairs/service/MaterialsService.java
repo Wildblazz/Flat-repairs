@@ -2,7 +2,6 @@ package com.lpr.repairs.service;
 
 import com.lpr.repairs.dto.param.create.MaterialCreateParam;
 import com.lpr.repairs.dto.param.search.MaterialSearchParam;
-import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.model.Material;
 import com.lpr.repairs.model.MaterialCategory;
 import com.lpr.repairs.model.TradeMark;
@@ -37,39 +36,32 @@ public class MaterialsService {
     materialsRepository.findByName(createParam.getName()).ifPresent(s -> {
       throw new RuntimeException();
     });
-    var tradeMark = saveTradeMark(createParam.getTradeMark());
-    var materialCategory = saveMaterialCategory(createParam.getMaterialCategory());
-    var jobCategory = saveJobCategory(createParam.getJobCategory());
+    var tradeMark = getTradeMark(createParam.getTradeMark());
+    var materialCategory = getMaterialCategory(createParam.getMaterialCategory());
 
-    return materialsRepository.save(createMaterial(createParam, materialCategory, jobCategory, tradeMark));
+    return materialsRepository.save(createMaterial(createParam, materialCategory, tradeMark));
   }
 
   public void remove(Long id) {
     materialsRepository.deleteById(id);
   }
 
-  private TradeMark saveTradeMark(String tradeMarkName) {
-    return tradeMarkRepository.findByName(tradeMarkName).orElse(tradeMarkRepository.save(TradeMark.builder().name(tradeMarkName).build()));
+  private TradeMark getTradeMark(String tradeMarkName) {
+    return tradeMarkRepository.findByName(tradeMarkName).orElse(TradeMark.builder().name(tradeMarkName).build());
   }
 
-  private MaterialCategory saveMaterialCategory(String materialCategoryName) {
+  private MaterialCategory getMaterialCategory(String materialCategoryName) {
     return materialCategoryRepository.findByName(materialCategoryName)
-        .orElse(materialCategoryRepository.save(MaterialCategory.builder().name(materialCategoryName).build()));
+        .orElse(MaterialCategory.builder().name(materialCategoryName).build());
   }
 
-  private JobCategory saveJobCategory(String jobCategoryName) {
-    return jobCategoryRepository.findByName(jobCategoryName)
-        .orElse(jobCategoryRepository.save(JobCategory.builder().name(jobCategoryName).build()));
-  }
-
-  private Material createMaterial(MaterialCreateParam createParam, MaterialCategory materialCategory, JobCategory jobCategory, TradeMark tradeMark) {
+  private Material createMaterial(MaterialCreateParam createParam, MaterialCategory materialCategory, TradeMark tradeMark) {
     return Material.builder()
         .name(createParam.getName())
         .description(createParam.getDescription())
         .price(createParam.getPrice())
-        .priceLevel(createParam.getPriority())
+        .priceLevel(createParam.getPriceLevel())
         .materialCategory(materialCategory)
-        .jobCategory(jobCategory)
         .tradeMark(tradeMark)
         .build();
   }

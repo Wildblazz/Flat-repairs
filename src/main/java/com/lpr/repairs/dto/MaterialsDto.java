@@ -1,6 +1,5 @@
 package com.lpr.repairs.dto;
 
-import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.model.Material;
 import com.lpr.repairs.model.Price;
 import com.lpr.repairs.model.TradeMark;
@@ -39,7 +38,6 @@ public class MaterialsDto {
   private String description;
 
   //todo add validation
-  private JobCategory jobCategory;
   private TradeMark tradeMark;
   private Price price;
   private PriorityEnum priority;
@@ -47,7 +45,6 @@ public class MaterialsDto {
   public MaterialsDto(Material material) {
     id = material.getId();
     name = material.getName();
-    jobCategory = material.getJobCategory();
     tradeMark = material.getTradeMark();
     price = material.getPrice();
     priority = material.getPriceLevel();
