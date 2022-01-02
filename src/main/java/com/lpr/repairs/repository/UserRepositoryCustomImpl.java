@@ -36,7 +36,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
 
     query.where(builder.and(predicates.toArray(new Predicate[0]))).distinct(true);
 
-    return predicates.isEmpty() ? List.of() : entityManager.createQuery(query).getResultList();
+    return entityManager.createQuery(query).getResultList();
   }
 
   private List<Predicate> getUserPredicates(

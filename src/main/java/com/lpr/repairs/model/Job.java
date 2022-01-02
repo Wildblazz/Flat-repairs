@@ -33,6 +33,9 @@ public class Job {
   @Column(length = 512)
   private String description;
 
+  @Column(length = 512)
+  private Price price;
+
   @ManyToOne
   @JoinColumn(name = "category_id", referencedColumnName = "id")
   private JobCategory jobCategory;
@@ -41,5 +44,6 @@ public class Job {
     this.name = createParam.getName();
     this.description = createParam.getDescription();
     this.jobCategory =  category;
+    this.price =  new Price(createParam.getCost(), createParam.getMeasureUnit(), createParam.getQuantityInOneUnit());
   }
 }

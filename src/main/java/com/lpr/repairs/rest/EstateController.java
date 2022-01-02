@@ -39,7 +39,7 @@ public class EstateController {
 
   @GetMapping(path = "/{estateId}")
   @ResponseStatus(HttpStatus.OK)
-  public EstateDto getByEstateid(@PathVariable("estateId") Long estateId) {
+  public EstateDto getByEstateId(@PathVariable("estateId") Long estateId) {
     return estateService.findEstateById(estateId);
   }
 

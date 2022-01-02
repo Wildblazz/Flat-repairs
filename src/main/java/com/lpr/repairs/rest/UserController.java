@@ -5,9 +5,6 @@ import com.lpr.repairs.dto.param.create.UserCreateParam;
 import com.lpr.repairs.dto.param.search.UserSearchParam;
 import com.lpr.repairs.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.List;
+import java.util.Set;
+
+import static com.lpr.repairs.common.Constants.Validation.ALPHANUMERIC;
 
 @RestController
 @RequestMapping("/user")
@@ -32,13 +33,20 @@ public class UserController {
 
   @GetMapping()
   @ResponseStatus(HttpStatus.OK)
-  public Page<UserDto> getAllUsers(@PageableDefault(sort = "name", size = 25) Pageable pageable) {
-    return userService.findAll(pageable);
-  }
+  public List<UserDto> getAllUsers(
+      @RequestParam(value = "user_id", required = false) @Pattern(regexp = ALPHANUMERIC) String userId,
+      @RequestParam(value = "user_name", required = false) @Pattern(regexp = ALPHANUMERIC) String userName,
+      @RequestParam(value = "name", required = false) @Pattern(regexp = ALPHANUMERIC) String name,
+      @RequestParam(value = "surname", required = false) @Pattern(regexp = ALPHANUMERIC) String surname,
+      @RequestParam(value = "estates", required = false) Set<Long> estateIds
+  ) {
+    var searchParam = UserSearchParam.builder()
+        .id(userId)
+        .userName(userName)
+        .name(name)
+        .surname(surname)
+        .estates(estateIds).build();
 
-  @PostMapping(path = "/search")
-  @ResponseStatus(HttpStatus.OK)
-  public List<UserDto> search(@Valid @RequestBody UserSearchParam searchParam) {
     return userService.search(searchParam);
   }
 

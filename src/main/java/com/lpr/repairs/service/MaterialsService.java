@@ -4,6 +4,7 @@ import com.lpr.repairs.dto.param.create.MaterialCreateParam;
 import com.lpr.repairs.dto.param.search.MaterialSearchParam;
 import com.lpr.repairs.model.Material;
 import com.lpr.repairs.model.MaterialCategory;
+import com.lpr.repairs.model.Price;
 import com.lpr.repairs.model.TradeMark;
 import com.lpr.repairs.repository.JobCategoryRepository;
 import com.lpr.repairs.repository.MaterialCategoryRepository;
@@ -59,7 +60,7 @@ public class MaterialsService {
     return Material.builder()
         .name(createParam.getName())
         .description(createParam.getDescription())
-        .price(createParam.getPrice())
+        .price(new Price(createParam.getCost(), createParam.getMeasureUnit(), createParam.getQuantityInOneUnit()))
         .priceLevel(createParam.getPriceLevel())
         .materialCategory(materialCategory)
         .tradeMark(tradeMark)

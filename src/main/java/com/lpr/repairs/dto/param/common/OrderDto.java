@@ -7,22 +7,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.util.Set;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class OrderDto {
 
   @NotNull
   private Long estateId;
 
-  private Set<Long> jobIds;
+  private Long jobId;
 
   private PriorityEnum materialsPriceLevel;
 
   private PriorityEnum employeeQualityLevel;
 
   private PriorityEnum repairTime;
+
+  private double totalPrice;
 }

@@ -8,9 +8,6 @@ import com.lpr.repairs.repository.UserRepository;
 import com.lpr.repairs.repository.UserRepositoryCustomImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +15,6 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static java.util.Collections.emptyList;
 
 @Slf4j
 @Service
@@ -36,21 +31,13 @@ public class UserService {
     return new UserDto(userRepository.save(new User(createParam)));
   }
 
-  public Page<UserDto> findAll(Pageable pageable) {
-    var users = userRepository.findAll(pageable);
-    if (users.getTotalElements() == 0) {
-      return new PageImpl<>(emptyList(), pageable, 0);
-    }
-    return users.map(UserDto::new);
-  }
-
   @Transactional
   public void remove(Long id) {
     userRepository.deleteById(id);
   }
 
   public List<UserDto> search(UserSearchParam searchParam) {
-    return  repositoryCustom.search(searchParam).stream().map(UserDto::new).collect(Collectors.toList());
+    return repositoryCustom.search(searchParam).stream().map(UserDto::new).collect(Collectors.toList());
   }
 
   public Optional<User> findUserByUserName(String userName) {

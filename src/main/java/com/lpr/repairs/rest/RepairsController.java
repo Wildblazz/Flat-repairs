@@ -1,6 +1,6 @@
 package com.lpr.repairs.rest;
 
-import com.lpr.repairs.dto.param.common.Order;
+import com.lpr.repairs.dto.param.common.OrderDto;
 import com.lpr.repairs.service.RepairsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class RepairsController {
 
   @PostMapping(path = "/calculate")
   @ResponseStatus(HttpStatus.OK)
-  public double calculate(@Valid @RequestBody Order param) {
+  public double calculate(@Valid @RequestBody OrderDto param) {
     return repairsService.calculate(param);
   }
 }

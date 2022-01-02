@@ -35,16 +35,16 @@ public class EmployeeController {
     return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
   }
 
-  @GetMapping(path = "/{employeeId}")
-  @ResponseStatus(HttpStatus.OK)
-  public ResponseEntity<Employee> findById(@PathVariable("employeeId") Long employeeId) {
-    return new ResponseEntity<>(service.findById(employeeId), HttpStatus.OK);
-  }
-
   @PostMapping(path = "/search")
   @ResponseStatus(HttpStatus.OK)
   public ResponseEntity<List<Employee>> search(@Valid @RequestBody EmployeeSearchParam searchParam) {
     return new ResponseEntity<>(service.search(searchParam), HttpStatus.OK);
+  }
+
+  @GetMapping(path = "/{employeeId}")
+  @ResponseStatus(HttpStatus.OK)
+  public ResponseEntity<Employee> findById(@PathVariable("employeeId") Long employeeId) {
+    return new ResponseEntity<>(service.findById(employeeId), HttpStatus.OK);
   }
 
   @PostMapping()

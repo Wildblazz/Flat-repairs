@@ -1,6 +1,6 @@
 package com.lpr.repairs.dto.param.create;
 
-import com.lpr.repairs.model.Price;
+import com.lpr.repairs.model.enums.MeasureUnitEnum;
 import com.lpr.repairs.model.enums.PriorityEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +40,13 @@ public class MaterialCreateParam {
   private String materialCategory;
 
   @NotNull
-  private Price price;
+  private Integer cost;
+
+  @NotNull
+  private MeasureUnitEnum measureUnit;
+
+  @NotNull
+  private Integer quantityInOneUnit;
 
   @NotNull
   private PriorityEnum priceLevel;

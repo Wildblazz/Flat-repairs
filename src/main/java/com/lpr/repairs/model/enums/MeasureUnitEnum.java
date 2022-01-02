@@ -1,5 +1,5 @@
 package com.lpr.repairs.model.enums;
 
 public enum MeasureUnitEnum {
-  HOUR, METER, NONE
+  HOUR, METER, KG, NONE
 }
