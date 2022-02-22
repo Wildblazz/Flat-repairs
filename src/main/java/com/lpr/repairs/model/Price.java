@@ -1,6 +1,8 @@
 package com.lpr.repairs.model;
 
 import com.lpr.repairs.model.enums.MeasureUnitEnum;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,7 +11,9 @@ import javax.validation.constraints.NotNull;
 
 @Data
 @Embeddable
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class Price {
   @NotNull
   private Integer cost;

@@ -25,18 +25,17 @@ import static com.lpr.repairs.repository.spec.SpecBuilder.likeCriteria;
 
 @Component
 public class MaterialsSpec {
-  public Specification<Material> buildSearchSpec(MaterialSearchParam searchParam) {
+  public Optional<Specification<Material>> buildSearchSpec(MaterialSearchParam searchParam) {
     var specList = new ArrayList<Specification<Material>>();
     addSpec(equalCriteria(Material_.ID, searchParam.getId()), specList);
     addSpec(likeCriteria(Material_.NAME, searchParam.getName()), specList);
     addSpec(equalCriteria(Material_.PRICE_LEVEL, searchParam.getPriceLevel()), specList);
     addSpec(getJoinedTable(Material.class, Price.class, Material_.PRICE, Price_.COST, Optional.ofNullable(searchParam.getPrice()).map(Price::getCost).orElse(null), EQUALITY), specList);
-    addSpec(getJoinedTable(Material.class, Price.class, Material_.PRICE, Price_.MEASURE_UNIT, Optional.ofNullable(searchParam.getPrice()).map(Price::getMeasureUnit).orElse(null), EQUALITY), specList);
     addSpec(getJoinedTable(Material.class, TradeMark.class, Material_.TRADE_MARK, TradeMark_.ID, searchParam.getTradeMarkId(), EQUALITY), specList);
     addSpec(getJoinedTable(Material.class, TradeMark.class, Material_.TRADE_MARK, TradeMark_.NAME, searchParam.getTradeMarkName(), EQUALITY), specList);
     addSpec(getJoinedTable(Material.class, MaterialCategory.class, Material_.MATERIAL_CATEGORY, MaterialCategory_.ID, searchParam.getMaterialCategoryId(), EQUALITY), specList);
     addSpec(getJoinedTable(Material.class, MaterialCategory.class, Material_.MATERIAL_CATEGORY, MaterialCategory_.NAME, searchParam.getMaterialCategoryName(), EQUALITY), specList);
 
-    return getNonNullSpecs(specList, AND);
+    return specList.isEmpty() ? Optional.empty() : Optional.of(getNonNullSpecs(specList, AND));
   }
 }

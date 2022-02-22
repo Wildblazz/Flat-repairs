@@ -3,12 +3,9 @@ package com.lpr.repairs.service;
 import com.lpr.repairs.dto.param.create.EmployeeCreateParam;
 import com.lpr.repairs.dto.param.search.EmployeeSearchParam;
 import com.lpr.repairs.model.Employee;
-import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.model.Team;
-import com.lpr.repairs.model.enums.PriorityEnum;
 import com.lpr.repairs.repository.EmployeeRepository;
 import com.lpr.repairs.repository.JobCategoryRepository;
-import com.lpr.repairs.repository.TeamRepository;
 import com.lpr.repairs.repository.spec.EmployeeSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.lpr.repairs.common.Util.isCollectionsSizeEqual;
@@ -29,19 +25,17 @@ public class EmployeeService {
 
   private final EmployeeRepository employeeRepository;
   private final JobCategoryRepository jobCategoryRepository;
-  private final TeamRepository teamRepository;
   private final EmployeeSpec employeeSpec;
 
-  public List<Employee> findAll() {
-    return employeeRepository.findAll();
-  }
-
   public Employee findById(Long estateId) {
-    return employeeRepository.findById(estateId).orElseThrow(RuntimeException::new);
+    return employeeRepository.findById(estateId).orElseThrow(() -> {
+      throw new RuntimeException("Employee with given id not exists");
+    });
   }
 
   public List<Employee> search(EmployeeSearchParam searchParam) {
-    return employeeRepository.findAll(employeeSpec.buildSearchSpec(searchParam));
+    var specs = employeeSpec.buildSearchSpec(searchParam);
+    return specs.map(employeeRepository::findAll).orElseGet(employeeRepository::findAll);
   }
 
   public Employee create(EmployeeCreateParam createParam) throws RuntimeException {
@@ -56,9 +50,5 @@ public class EmployeeService {
   public void remove(Long id) {
     var existing = findById(id);
     employeeRepository.delete(existing);
-  }
-
-  public List<Employee> getEmployeesByJobAndPriceLevel(Set<JobCategory> jobs, PriorityEnum priceLevel) {
-    return employeeRepository.findByJobCategoriesInAndSkill(jobs, priceLevel);
   }
 }

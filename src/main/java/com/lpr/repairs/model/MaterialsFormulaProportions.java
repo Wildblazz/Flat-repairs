@@ -27,6 +27,10 @@ public class MaterialsFormulaProportions {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private long id;
 
+//  Пример. формула цемента М400 на один куб: песок 1365 кг(74.33%), цемент 400 кг(22.66%) = 1765кг
+//  Толщина стяжки 5см = 0,05 * 100кв метров = 5 куб метров материала.
+//  Чтобы получить колличество материала на 1 кв метр, нужно 1765кг * 5кубов / 100 кв метров = 88.25 кг смеси на 1 кв метр
+//  todo избавиться от ручных подсчетов
   @Column
   private double quantityInOneMeasureUnit;
 

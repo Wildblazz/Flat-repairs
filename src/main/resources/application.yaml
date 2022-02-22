@@ -1,27 +1,27 @@
 #tomcat
 server:
-  port: 5555
+  port: ${PORT:5555}
   servlet.contextPath: /repairs
 
 #db
 spring:
   datasource:
-    url: jdbc:postgresql://${POSTGRESQL_DB_URL:localhost:5432/repairs}
-    username: ${POSTGRESQL_DB_USERNAME:user}
-    password: ${POSTGRESQL_DB_PASSWORD:pass}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:repairs}
+    username: ${POSTGRES_USER:user}
+    password: ${POSTGRES_PASSWORD:pass}
   jpa:
     show-sql: true
     properties.hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       dbc.lob.non_contextual_creation: true
     hibernate:
-      ddl-auto: update
-#  sql.init:
-#    ddlScriptLocations: classpath*:resources/initDB.sql
-#    data-locations: classpath*:database/populateDB.sql
-##spring.sql.init.ddlScriptLocations=classpath*:resources/initDB.sql
-##spring.sql.init.data-locations=classpath*:database/populateDB.sql
+      ddl-auto: validate
+    generate-ddl: false
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
 
+#app props
 price:
   ratio:
     time:

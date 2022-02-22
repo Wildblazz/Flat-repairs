@@ -8,8 +8,6 @@ import com.lpr.repairs.repository.JobRepository;
 import com.lpr.repairs.repository.spec.JobSpec;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -23,6 +21,17 @@ public class JobService {
   private final JobCategoryRepository categoryRepository;
   private final JobSpec jobSpec;
 
+  public List<Job> search(JobSearchParam searchParam) {
+    var specs = jobSpec.buildSearchSpec(searchParam);
+    return specs.map(jobRepository::findAll).orElseGet(jobRepository::findAll);
+  }
+
+  public Job findById(Long jobId) {
+    return jobRepository.findById(jobId).orElseThrow(() -> {
+      throw new RuntimeException("Job with given id not exists");
+    });
+  }
+
   public Job create(@Valid JobCreateParam createParam) {
     jobRepository.findByName(createParam.getName()).ifPresent(obj -> {
       throw new RuntimeException("Job with given name exists");
@@ -34,15 +43,7 @@ public class JobService {
     return jobRepository.save(new Job(createParam, category));
   }
 
-  public Page<Job> findAll(Pageable pageable) {
-    return jobRepository.findAll(pageable);
-  }
-
   public void remove(Long id) {
     jobRepository.deleteById(id);
-  }
-
-  public List<Job> search(JobSearchParam searchParam) {
-    return jobRepository.findAll(jobSpec.buildSearchSpec(searchParam));
   }
 }

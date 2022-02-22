@@ -20,16 +20,13 @@ public class TeamService {
   private final TeamRepository teamRepository;
   private final TeamSpec teamSpec;
 
-  public List<Team> findAll() {
-    return teamRepository.findAll();
-  }
-
   public Team findById(Long teamId) {
     return teamRepository.findById(teamId).orElseThrow(RuntimeException::new);
   }
 
   public List<Team> search(TeamSearchParam searchParam) {
-    return teamRepository.findAll(teamSpec.buildSearchSpec(searchParam));
+    var specs = teamSpec.buildSearchSpec(searchParam);
+    return specs.map(teamRepository::findAll).orElseGet(teamRepository::findAll);
   }
 
   public Team create(String name) throws RuntimeException {

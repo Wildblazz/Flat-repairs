@@ -34,7 +34,6 @@ public class EstateDto {
   @NotBlank
   private double toiletArea;
 
-
   @Max(4)
   @NotBlank
   private double bathroomArea;
@@ -58,7 +57,6 @@ public class EstateDto {
   private boolean isCommonBathroomWithToilet;
 
   private long userId;
-
 
   public EstateDto(Estate estate) {
     id = estate.getId();

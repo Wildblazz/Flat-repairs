@@ -11,8 +11,7 @@ import com.lpr.repairs.repository.MaterialCategoryRepository;
 import com.lpr.repairs.repository.MaterialFormulaRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -97,12 +96,17 @@ public class JobCategoryService {
         .build();
   }
 
-  public Page<JobCategory> findAll(Pageable pageable) {
-    return jobCategoryRepository.findAll(pageable);
+  public List<JobCategory> search(List<String> names) {
+    if (CollectionUtils.isNotEmpty(names)) {
+      return jobCategoryRepository.findByNameIn(names);
+    }
+    return jobCategoryRepository.findAll();
   }
 
-  public List<JobCategory> findByNameIn(List<String> name) {
-    return jobCategoryRepository.findByNameIn(name);
+  public JobCategory findById(Long id) {
+    return jobCategoryRepository.findById(id).orElseThrow(() -> {
+      throw new RuntimeException("Job category with given id not exists");
+    });
   }
 
   public void remove(Long id) {

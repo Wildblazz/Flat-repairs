@@ -6,7 +6,6 @@ import com.lpr.repairs.model.Material;
 import com.lpr.repairs.model.MaterialCategory;
 import com.lpr.repairs.model.Price;
 import com.lpr.repairs.model.TradeMark;
-import com.lpr.repairs.repository.JobCategoryRepository;
 import com.lpr.repairs.repository.MaterialCategoryRepository;
 import com.lpr.repairs.repository.MaterialsRepository;
 import com.lpr.repairs.repository.TradeMarkRepository;
@@ -24,12 +23,18 @@ public class MaterialsService {
 
   private final MaterialsRepository materialsRepository;
   private final MaterialCategoryRepository materialCategoryRepository;
-  private final JobCategoryRepository jobCategoryRepository;
   private final TradeMarkRepository tradeMarkRepository;
   private final MaterialsSpec materialsSpec;
 
-  public List<Material> findAll() {
-    return materialsRepository.findAll();
+  public List<Material> search(MaterialSearchParam searchParam) {
+    var specs = materialsSpec.buildSearchSpec(searchParam);
+    return specs.map(materialsRepository::findAll).orElseGet(materialsRepository::findAll);
+  }
+
+  public Material findById(Long id) {
+    return materialsRepository.findById(id).orElseThrow(() -> {
+      throw new RuntimeException("Material with given id not exists");
+    });
   }
 
   public Material create(MaterialCreateParam createParam) throws Exception {
@@ -67,7 +72,4 @@ public class MaterialsService {
         .build();
   }
 
-  public List<Material> search(MaterialSearchParam searchParam) {
-    return materialsRepository.findAll(materialsSpec.buildSearchSpec(searchParam));
-  }
 }

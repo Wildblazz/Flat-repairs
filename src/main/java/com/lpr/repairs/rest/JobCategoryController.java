@@ -4,13 +4,11 @@ import com.lpr.repairs.dto.param.create.JobCategoryCreateParam;
 import com.lpr.repairs.model.JobCategory;
 import com.lpr.repairs.service.JobCategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,27 +27,26 @@ import static com.lpr.repairs.common.Constants.Validation.ALPHANUMERIC;
 @RequestMapping("/jobCategory")
 @RequiredArgsConstructor
 public class JobCategoryController {
-
   private final JobCategoryService service;
 
   @GetMapping()
   @ResponseStatus(HttpStatus.OK)
-  public Page<JobCategory> getAllJobCategories(@PageableDefault(sort = "name", size = 25) Pageable pageable) {
-    return service.findAll(pageable);
+  public List<JobCategory> searchJobCategories(
+      @RequestParam(required = false) List<@Pattern(regexp = ALPHANUMERIC)String> names) {
+    return service.search(names);
   }
 
-  @PostMapping(path = "/findByNameIn")
+  @GetMapping(path = "/{id}")
   @ResponseStatus(HttpStatus.OK)
-  public List<JobCategory> findByNameIn(@RequestBody List<@Pattern(regexp = ALPHANUMERIC)String> names) {
-    return service.findByNameIn(names);
+  public ResponseEntity<JobCategory> findById(@PathVariable("id") Long id) {
+    return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
   }
 
   @PostMapping()
   @ResponseStatus(HttpStatus.CREATED)
-  public ResponseEntity<JobCategory> createJobCategory(@Pattern(regexp = ALPHANUMERIC) @RequestBody @Valid JobCategoryCreateParam param) {
+  public ResponseEntity<JobCategory> createJobCategory(@RequestBody @Valid JobCategoryCreateParam param) {
     return new ResponseEntity<>(service.create(param), HttpStatus.OK);
   }
-
 
   @DeleteMapping()
   @ResponseStatus(HttpStatus.OK)

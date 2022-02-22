@@ -6,8 +6,8 @@ public class Constants {
 
   @UtilityClass
   public static class Validation {
-    public static final String ALPHANUMERIC = "^[a-zA-Z0-9]*$";
-    public static final String ALPHABETIC = "^[a-zA-Z]*$";
+    public static final String ALPHANUMERIC = "^[a-zA-Zа-яА-Я0-9]*$";
+    public static final String ALPHABETIC = "^[a-zA-Zа-яА-Я]*$";
     public static final String NUMERIC = "^[0-9]*$";
   }
 
